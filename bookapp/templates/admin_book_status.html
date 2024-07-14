@@ -1,0 +1,98 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block search %}
+<!-- <div class="navbar-nav align-items-center">
+    <div class="nav-item d-flex align-items-center">
+      <i class="bx bx-search fs-4 lh-0"></i>
+      <input
+        type="text"
+        class="form-control border-0 shadow-none"
+        placeholder="Search..."
+        aria-label="Search..."
+      />
+    </div>
+  </div> -->
+{% endblock%}
+
+{% block nav %}
+<ul class="menu-inner py-1">
+    <!-- Dashboard -->
+    <li class="menu-item">
+        <a href="{% url 'admin_book_list' %}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-collection"></i>
+        <div data-i18n="Basic">Book List</div>
+        </a>
+    </li>
+    <li class="menu-item">
+        <a href="{% url 'admin_book_request_list' %}" class="menu-link">
+            <i class="bx bx-bell me-1"></i>
+        <div data-i18n="Basic">Book Request</div>
+        </a>
+    </li>
+    {% if not request.user.is_staff %}
+    <li class="menu-item">
+        <a href="{% url 'admin_book_request_list' %}" class="menu-link">
+            <i class="bx bx-user me-1"></i>
+            
+        <div data-i18n="Basic">User List</div>
+        </a>
+    </li>
+    {% endif %}
+    <li class="menu-item active">
+        <a href="{% url 'admin_book_status_list' %}" class="menu-link">
+            <i class="bx bx-user me-1"></i>
+            
+        <div data-i18n="Basic">Book Status</div>
+        </a>
+    </li>
+
+  </ul>
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin /</span> Book List</h4>
+
+      <!-- Basic Bootstrap Table -->
+      <div class="card">
+       
+        <div class="table-responsive text-nowrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Book Title</th>
+                <th>User</th>
+                <th>status</th>
+              </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+              
+              
+              {% for obj in book_list %}
+              <tr>
+                <td>{{obj.book__book_title}}</td>
+                <td>{{obj.user__username}}</td>
+                {% if obj.status == "approved" %}
+                <td><span class="badge bg-label-success me-1">{{obj.status}}</span></td>
+                {% elif obj.status == "rejected" %}
+                <td><span class="badge bg-label-danger me-1">{{obj.status}}</span></td>
+                {% elif obj.status == "pending" %}
+                <td><span class="badge bg-label-info me-1">{{obj.status}}</span></td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!--/ Basic Bootstrap Table -->
+
+
+
+
+  </div>
+{% endblock %}
