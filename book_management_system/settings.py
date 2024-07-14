@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-pe38t7zoyz#!94hqi$k03lfhx@wdoy3!&ha27ie2%-4czmqn(y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['x23113651-bookmanagementenv.eba-fj9fepps.eu-west-1.elasticbeanstalk.com','*']
+CSRF_TRUSTED_ORIGINS = ['http://x23113651-bookmanagementenv.eba-fj9fepps.eu-west-1.elasticbeanstalk.com/']
+
 
 
 # Application definition
