@@ -8,11 +8,20 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: openjdk8
+#      java: openjdk8
       python: 3.11
     commands:
       - pip install --upgrade pip
       - pip install -r requirements.txt pylint
+      - echo "Installing corretto (OpenJDK) version 21 ..."
+      - export JAVA_HOME="$JAVA_21_HOME"
+      - export JDK_HOME="$JDK_21_HOME"
+      # - for tool_path in "$JAVA_HOME"/bin/*
+      - export GRADLE_VERSION=$GRADLE_85_VERSION
+      - unlink /usr/bin/gradle
+      - ln -s /usr/local/gradle-$GRADLE_85_VERSION/bin/gradle /usr/bin/gradle
+      - yum update -y
+      - yum install -y jq
   pre_build:
     commands:
       - apt-get update
