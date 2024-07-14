@@ -24,20 +24,20 @@ phases:
       - yum install -y jq
   pre_build:
     commands:
-      - wget http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
-      - tar xzf apache-maven-3.5.4-bin.tar.gz
+      - sudo wget http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
+      - sudo tar xzf apache-maven-3.5.4-bin.tar.gz
       - ln -s apache-maven-3.5.4 maven
       - python --version
       - pylint book_management_system/**/*.py || true
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
-      - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
+      - sudo wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+      - sudo unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
       - export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
   build:
     commands:
       - mvn test     
       - mvn sonar:sonar -Dsonar.login=7ab32f31e12d8a2bfc31da3f215fc8bde1b8ecc0 -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=book_management_system -Dsonar.organization=Ajay2415 || true
       - sleep 5
-      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=book_management_system >result.json
+      - sudo curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=book_management_system >result.json
       - cat result.json
       - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then $CODEBUILD_BUILD_SUCCEEDING -eq 0 ;fi
 
