@@ -21,6 +21,7 @@ phases:
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
       - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
       - export PATH=$PATH:./sonar-scanner-3.3.0.1492-linux/bin/
+      - echo "pre build stage completed"
   build:
     commands:
       - sonar-scanner -Dsonar.login=7ab32f31e12d8a2bfc31da3f215fc8bde1b8ecc0 -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=book_management_system -Dsonar.organization=Ajay2415 || true
