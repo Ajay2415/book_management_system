@@ -17,7 +17,7 @@ phases:
   pre_build:
     commands:
       - python --version
-      - python manage.py collectstatic
+      - python manage.py collectstatic --noinput
       - pylint book_management_system/**/*.py || true
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
       - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
