@@ -166,7 +166,7 @@ class UserBookListView(View):
             allot_obj = models.BookAllotmentModel.objects.filter(
                 book=obj.get("id"), user=request.user
             ).first()
-            if allot_obj and allot_obj.user is not request.user:
+            if allot_obj:
                 obj["available"] = allot_obj.status
             else:
                 obj["available"] = None
